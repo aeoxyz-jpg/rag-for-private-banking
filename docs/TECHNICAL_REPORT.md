@@ -172,6 +172,13 @@ the governed metric, the few-shot, *and* the gold simultaneously — yet eval ca
 between two paths that should agree. Fix (now an invariant): pre-aggregate holdings per account before the
 join. This single bug is the entire argument for a governed semantic layer. (`exec_match` is also too brittle
 at small n — swung Q2 1.0↔0.625 across runs — so `value_recall` is the steadier reported signal.)
+
+```sql
+-- both valid SQL, both run; only the second is correct ("clients > $1M": 514 vs 256)
+accounts LEFT JOIN holdings ...                                                    -- fans out → 514
+accounts LEFT JOIN (SELECT account_id, SUM(market_value) mv FROM holdings GROUP BY account_id) h  -- → 256
+```
+
 **Open.** Point-in-time / SCD temporal SQL.
 
 ### 3.2 Semantic recall — hybrid vector (A) + reranking
@@ -219,7 +226,8 @@ KPIs `churn_risk`/`days_since_contact`) is the result, not the label.**
 out-of-catalog probes" into the real behaviour: E **mis-routes ~75–80%** (75% single-run; mean 0.78 across
 the 5-run pass, itself run-noisy at 0.65–0.90) — it silently answers an ungoverned
 question with a nearby wrong metric, arguably worse than B, which at least attempts the real question. A
-pass/fail number had hidden the worse mode.
+pass/fail number had hidden the worse mode. Concretely: `"each client's risk-adjusted return"` (no such
+governed metric) → E picks **`net_new_money`** and answers, with no abstention.
 **Validated — storage (3b).** Porting the 5 metrics to a dbt/Cube-style declarative spec and an RDF graph,
 all three (incl. baseline YAML+hand-SQL) reproduce the canonical numbers (hard equivalence gate). The
 declarative form expresses `share_of_wallet` as a **native ratio reference** to `aum` (vs the baseline's
@@ -239,7 +247,14 @@ over embedded KùzuDB vs LLM→recursive-SQL over SQLite, scored by hop-depth ag
 A graph engine is justified **only for variable-length path-finding** — recursive-CTE shortest-path on a
 cyclic graph is exponential and times out, while native `-[:Rel* SHORTEST]-` is trivial — but for every
 fixed-depth pattern (k-hop, household, UBO, control chains) **recursive SQL is fully capable** at the oracle
-ceiling (SQL fails only `shortest_path`: 0.0 vs Cypher 1.0; all other categories 1.0/1.0).
+ceiling (SQL fails only `shortest_path`: 0.0 vs Cypher 1.0; all other categories 1.0/1.0). The same
+`shortest_path` question, both engines (oracle queries from `kgx/oracles.py`):
+
+```
+SQL:    WITH RECURSIVE bfs(id,d,path) AS ( … explores every path to depth 8 … )  -- exponential → 30s timeout → 0.0
+Cypher: MATCH p=(a)-[:Rel* SHORTEST]-(b) RETURN nodes(p) LIMIT 1                  -- one native operator → ms → 1.0
+```
+
 **Robustness — verdict holds across graph scale, with the first crack at the top end.** A sensitivity sweep
 rebuilt the graph at three scales (806 / 1,215 / 1,953 nodes) and re-ran the oracle ceiling at each (the
 verdict is oracle-keyed, so this is the right knob to vary). The pattern is stable — SQL stays at 0.0 on
@@ -269,6 +284,14 @@ reality to know.)
 **Strategy & validated.** F classifies each query and dispatches to B/A/E/D, or for Q7 decomposes
 vector-filter → SQL-filter-over-candidates → synthesize (validated end-to-end). D-lite assembles a
 deterministic profile + governed metrics + latest notes into an LLM pre-meeting brief (Q4) — no RAPTOR needed.
+A real Q7 trace — note the order (fuzzy filter first, exact SQL over the small candidate set second):
+
+```
+"clients who mentioned liquidity who also have a loan maturing this year"  -> route=hybrid
+  semantic_filter "needing liquidity"     -> vector search -> 25 candidate client_ids
+  structured_filter "loan maturing"       -> SQL: loans JOIN clients WHERE client_id IN (114,226,…)
+  synthesize -> "Michael Morrow (7980): $60,156 @ 9.29%, matures 1998-10-27, in default"
+```
 **Validated — routing accuracy (the thesis's load-bearing step).** F is now measured directly against a
 hand-labeled routing gold (28 questions, all six routes, including Q4/Q7 and deliberate **E↔B boundary**
 cases — segment-aggregate → B vs per-client KPI → E). `deepseek-v4-flash` routes **100%** correctly
