@@ -1,0 +1,14 @@
+[
+  {"id": "sql-q5-1", "archetype": "Q5", "question": "Which clients are in the same household as client 13955 (including the client)?",
+   "reference_sql": "SELECT client_id FROM clients WHERE household_id = (SELECT household_id FROM clients WHERE client_id=13955) ORDER BY client_id"},
+  {"id": "sql-q5-2", "archetype": "Q5", "question": "How many multi-member households are there?",
+   "reference_sql": "SELECT COUNT(*) AS n FROM (SELECT household_id FROM clients GROUP BY household_id HAVING COUNT(*) > 1)"},
+  {"id": "sql-q5-3", "archetype": "Q5", "question": "Which clients work at the same employer as client 16?",
+   "reference_sql": "SELECT DISTINCT e2.src_id AS client_id FROM edges e1 JOIN edges e2 ON e1.dst_id=e2.dst_id WHERE e1.src_id=16 AND e1.rel_type='employer' AND e2.rel_type='employer' ORDER BY client_id"},
+  {"id": "sql-q5-4", "archetype": "Q5", "question": "How many clients are linked to the company 'Martin, Rose and Obrien'?",
+   "reference_sql": "SELECT COUNT(DISTINCT e.src_id) AS n FROM edges e JOIN companies co ON co.company_id=e.dst_id WHERE e.rel_type='employer' AND co.name='Martin, Rose and Obrien'"},
+  {"id": "sql-q5-5", "archetype": "Q5", "question": "Among clients who share an employer with client 16, how many are HNW or UHNW?",
+   "reference_sql": "SELECT COUNT(DISTINCT e2.src_id) AS n FROM edges e1 JOIN edges e2 ON e1.dst_id=e2.dst_id JOIN clients c ON c.client_id=e2.src_id WHERE e1.src_id=16 AND e1.rel_type='employer' AND e2.rel_type='employer' AND c.segment IN ('HNW','UHNW')"},
+  {"id": "sql-q5-6", "archetype": "Q5", "question": "Which relationship manager advises client 13955, and who else is in that client's household?",
+   "reference_sql": "SELECT c.client_id, c.rm_id FROM clients c WHERE c.household_id = (SELECT household_id FROM clients WHERE client_id=13955) ORDER BY c.client_id"}
+]

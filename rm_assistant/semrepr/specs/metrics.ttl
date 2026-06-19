@@ -1,0 +1,53 @@
+@prefix m: <http://rm/metric#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+m:aum a m:Metric ;
+  m:label "Assets Under Management" ;
+  m:sql """SELECT a.client_id,
+       SUM(a.balance + COALESCE(h.mv, 0)) AS aum
+FROM accounts a
+LEFT JOIN (SELECT account_id, SUM(market_value) AS mv
+           FROM holdings GROUP BY account_id) h ON h.account_id = a.account_id
+GROUP BY a.client_id""" .
+
+m:days_since_contact a m:Metric ;
+  m:label "Days Since Last Contact" ;
+  m:sql """SELECT c.client_id,
+       CAST(julianday(:as_of) - julianday(MAX(i.ts)) AS INT) AS days_since_contact
+FROM clients c
+LEFT JOIN interactions i ON i.client_id = c.client_id
+GROUP BY c.client_id""" .
+
+m:net_new_money a m:Metric ;
+  m:label "Net New Money" ;
+  m:sql """SELECT a.client_id,
+       SUM(CASE WHEN t.type='credit' THEN t.amount ELSE -t.amount END) AS net_new_money
+FROM accounts a JOIN transactions t ON t.account_id = a.account_id
+WHERE t.ts BETWEEN :start AND :as_of
+GROUP BY a.client_id""" .
+
+m:share_of_wallet a m:Metric ;
+  m:label "Share of Wallet (proxy)" ;
+  m:dependsOn m:aum ;
+  m:sql """SELECT m.client_id,
+       m.aum / (m.aum + COALESCE(l.debt, 0)) AS share_of_wallet
+FROM ( {aum} ) m
+LEFT JOIN (SELECT client_id, SUM(principal) debt FROM loans
+           WHERE status IN ('current','delinquent') GROUP BY client_id) l
+  ON l.client_id = m.client_id""" .
+
+m:churn_risk a m:Metric ;
+  m:label "Churn Risk (heuristic)" ;
+  m:dependsOn m:days_since_contact, m:net_new_money ;
+  m:sql """SELECT c.client_id,
+       MIN(1.0,
+           0.5 * (COALESCE(dsc.days_since_contact, 365) / 365.0)
+         + 0.3 * COALESCE(neg.neg_share, 0)
+         + 0.2 * (CASE WHEN nnm.net_new_money < 0 THEN 1 ELSE 0 END)
+       ) AS churn_risk
+FROM clients c
+LEFT JOIN ( {days_since_contact} ) dsc ON dsc.client_id = c.client_id
+LEFT JOIN ( {net_new_money} ) nnm ON nnm.client_id = c.client_id
+LEFT JOIN (SELECT client_id,
+                  AVG(CASE WHEN sentiment='negative' THEN 1.0 ELSE 0 END) neg_share
+           FROM interactions GROUP BY client_id) neg ON neg.client_id = c.client_id""" .

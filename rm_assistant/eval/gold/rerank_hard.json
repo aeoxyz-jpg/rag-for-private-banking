@@ -1,0 +1,254 @@
+[
+ {
+  "id": "rr-0",
+  "question": "What reason did the client give for the large ATM withdrawal?",
+  "gold_doc_id": "doc-6546-1",
+  "client_id": 6546,
+  "n_sibling_notes": 2
+ },
+ {
+  "id": "rr-1",
+  "question": "How should we deploy the idle cash from the recently paid-off loan, given the client's current portfolio mix and upcoming pension income?",
+  "gold_doc_id": "doc-4177-2",
+  "client_id": 4177,
+  "n_sibling_notes": 3
+ },
+ {
+  "id": "rr-2",
+  "question": "Was the ATM fee dispute resolved by reversing the charge after confirming the ATM was a partner machine?",
+  "gold_doc_id": "doc-487-7",
+  "client_id": 487,
+  "n_sibling_notes": 7
+ },
+ {
+  "id": "rr-3",
+  "question": "Did the client accept the six-month fee waiver?",
+  "gold_doc_id": "doc-422-4",
+  "client_id": 422,
+  "n_sibling_notes": 7
+ },
+ {
+  "id": "rr-4",
+  "question": "What was the resolution for the client who disputed the $12 monthly account service fee and claimed she never received the fee disclosure?",
+  "gold_doc_id": "doc-10479-3",
+  "client_id": 10479,
+  "n_sibling_notes": 5
+ },
+ {
+  "id": "rr-5",
+  "question": "What was the client's reason for making a large ATM withdrawal, and what did they mention about their equity allocation?",
+  "gold_doc_id": "doc-4604-4",
+  "client_id": 4604,
+  "n_sibling_notes": 4
+ },
+ {
+  "id": "rr-6",
+  "question": "What was the client's reaction to the year-end account performance summary?",
+  "gold_doc_id": "doc-10198-7",
+  "client_id": 10198,
+  "n_sibling_notes": 7
+ },
+ {
+  "id": "rr-7",
+  "question": "Why was a $15 account service fee applied to a client whose average balance was above the waiver threshold, and what action was taken to resolve it?",
+  "gold_doc_id": "doc-1220-1",
+  "client_id": 1220,
+  "n_sibling_notes": 6
+ },
+ {
+  "id": "rr-8",
+  "question": "How should the client's annual bonus of 120,000 CZK be invested, and what was agreed regarding the cash balance and the alternative fund?",
+  "gold_doc_id": "doc-3255-1",
+  "client_id": 3255,
+  "n_sibling_notes": 6
+ },
+ {
+  "id": "rr-9",
+  "question": "How can we address the cash drag for a long-term client with a balanced risk profile who has been entirely in cash since account opening?",
+  "gold_doc_id": "doc-1883-2",
+  "client_id": 1883,
+  "n_sibling_notes": 6
+ },
+ {
+  "id": "rr-10",
+  "question": "What steps were taken to resolve a HNW client's concern about a monthly account service fee that should have been waived due to their balance being above the threshold?",
+  "gold_doc_id": "doc-835-1",
+  "client_id": 835,
+  "n_sibling_notes": 6
+ },
+ {
+  "id": "rr-11",
+  "question": "Which new client interested in growth-oriented investments and Wealth Advisory has upcoming household expenses and needs a follow-up on term deposit options?",
+  "gold_doc_id": "doc-13657-0",
+  "client_id": 13657,
+  "n_sibling_notes": 6
+ },
+ {
+  "id": "rr-12",
+  "question": "What alternative investment is the client interested in, and when do they expect additional funds to contribute?",
+  "gold_doc_id": "doc-4915-0",
+  "client_id": 4915,
+  "n_sibling_notes": 7
+ },
+ {
+  "id": "rr-13",
+  "question": "What is the client's target alternative allocation, her risk profile, and her interest in venture capital and private equity?",
+  "gold_doc_id": "doc-4771-2",
+  "client_id": 4771,
+  "n_sibling_notes": 4
+ },
+ {
+  "id": "rr-14",
+  "question": "What prompted the advisor to suggest reviewing the client's liquidity needs before adjusting their portfolio?",
+  "gold_doc_id": "doc-8598-0",
+  "client_id": 8598,
+  "n_sibling_notes": 4
+ },
+ {
+  "id": "rr-15",
+  "question": "When should we schedule the next review for the new client who transferred with a $1.43M equity portfolio and prefers balanced risk?",
+  "gold_doc_id": "doc-1850-0",
+  "client_id": 1850,
+  "n_sibling_notes": 7
+ },
+ {
+  "id": "rr-16",
+  "question": "What was the outcome of the client's complaint about the monthly service fee, including the goodwill credit and the escalation to the branch manager?",
+  "gold_doc_id": "doc-55-3",
+  "client_id": 55,
+  "n_sibling_notes": 3
+ },
+ {
+  "id": "rr-17",
+  "question": "Did the client want to make any changes to their portfolio after discussing the lower interest rate on their savings account?",
+  "gold_doc_id": "doc-11866-5",
+  "client_id": 11866,
+  "n_sibling_notes": 5
+ },
+ {
+  "id": "rr-18",
+  "question": "What is the current interest rate on cash balances, and how much monthly interest is a client earning?",
+  "gold_doc_id": "doc-2228-6",
+  "client_id": 2228,
+  "n_sibling_notes": 6
+ },
+ {
+  "id": "rr-19",
+  "question": "How should we rebalance the client's $125k fixed income holdings to align with their aggressive risk profile, and which top funds and cash alternatives should we present for performance comparison?",
+  "gold_doc_id": "doc-3019-2",
+  "client_id": 3019,
+  "n_sibling_notes": 7
+ },
+ {
+  "id": "rr-20",
+  "question": "Why did the client decline the suggestion to add a small-cap ETF to his portfolio?",
+  "gold_doc_id": "doc-1613-0",
+  "client_id": 1613,
+  "n_sibling_notes": 5
+ },
+ {
+  "id": "rr-21",
+  "question": "How should we address a client's large cash position and desire to optimize returns, given her previous use of ATM withdrawals for property and alternative investments, and her lack of pension income?",
+  "gold_doc_id": "doc-7100-2",
+  "client_id": 7100,
+  "n_sibling_notes": 2
+ },
+ {
+  "id": "rr-22",
+  "question": "What amount did the client agree to consider moving from cash into a global equity fund?",
+  "gold_doc_id": "doc-3030-0",
+  "client_id": 3030,
+  "n_sibling_notes": 3
+ },
+ {
+  "id": "rr-23",
+  "question": "What are the terms of the structured note the client wants to purchase, including the participation rate and principal protection?",
+  "gold_doc_id": "doc-1860-1",
+  "client_id": 1860,
+  "n_sibling_notes": 5
+ },
+ {
+  "id": "rr-24",
+  "question": "Did the client choose to reinvest dividends from their equity fund?",
+  "gold_doc_id": "doc-92-1",
+  "client_id": 92,
+  "n_sibling_notes": 7
+ },
+ {
+  "id": "rr-25",
+  "question": "What was the reason for the large ATM withdrawal yesterday?",
+  "gold_doc_id": "doc-10912-1",
+  "client_id": 10912,
+  "n_sibling_notes": 7
+ },
+ {
+  "id": "rr-26",
+  "question": "What did the client request regarding the recurring service fee, and what type of account did the relationship manager suggest to avoid future fees?",
+  "gold_doc_id": "doc-4171-1",
+  "client_id": 4171,
+  "n_sibling_notes": 4
+ },
+ {
+  "id": "rr-27",
+  "question": "Why did the client dispute the account service fee increase on her September statement?",
+  "gold_doc_id": "doc-2414-3",
+  "client_id": 2414,
+  "n_sibling_notes": 5
+ },
+ {
+  "id": "rr-28",
+  "question": "What was the reason for the client's recent large withdrawal, and how did the portfolio review address her concerns about cash reserves?",
+  "gold_doc_id": "doc-5392-0",
+  "client_id": 5392,
+  "n_sibling_notes": 2
+ },
+ {
+  "id": "rr-29",
+  "question": "Was the large ATM withdrawal of 56,800 for a property purchase?",
+  "gold_doc_id": "doc-1133-1",
+  "client_id": 1133,
+  "n_sibling_notes": 3
+ },
+ {
+  "id": "rr-30",
+  "question": "When should we follow up with the Wealth Advisory prospect who is focusing on finishing her studies?",
+  "gold_doc_id": "doc-1355-4",
+  "client_id": 1355,
+  "n_sibling_notes": 6
+ },
+ {
+  "id": "rr-31",
+  "question": "What short-term investment was recommended to a cautious client with a large cash balance to improve yield while preserving safety?",
+  "gold_doc_id": "doc-6616-0",
+  "client_id": 6616,
+  "n_sibling_notes": 3
+ },
+ {
+  "id": "rr-32",
+  "question": "How much in investable assets does the referral lead from Gerald have, and what portfolio type is he interested in?",
+  "gold_doc_id": "doc-9641-4",
+  "client_id": 9641,
+  "n_sibling_notes": 4
+ },
+ {
+  "id": "rr-33",
+  "question": "What portion of the pension deposit was reinvested into the short-term bond fund?",
+  "gold_doc_id": "doc-4567-1",
+  "client_id": 4567,
+  "n_sibling_notes": 7
+ },
+ {
+  "id": "rr-34",
+  "question": "What fixed income product should I discuss with the client who has a large cash position and existing fixed income holdings, and what is the recommended next step?",
+  "gold_doc_id": "doc-1826-6",
+  "client_id": 1826,
+  "n_sibling_notes": 7
+ },
+ {
+  "id": "rr-35",
+  "question": "How does the client prefer to structure discussions during the annual review?",
+  "gold_doc_id": "doc-798-2",
+  "client_id": 798,
+  "n_sibling_notes": 2
+ }
+]

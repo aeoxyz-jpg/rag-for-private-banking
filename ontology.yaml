@@ -1,0 +1,188 @@
+# Ontology / semantic metadata for the unified warehouse (spec §3.5).
+# Three jobs: (1) glossary feeds the text-to-SQL prompt and documents the KG schema;
+# (2) metrics are the single governed definitions the semantic layer (E) serves so every
+# path returns identical numbers; (3) entity_dictionary disambiguates NL queries.
+#
+# Point-in-time: the Berka corpus ends 1998-12-31; treat that as "today" for as-of queries.
+as_of_date: "1998-12-31"
+currency: USD   # Berka magnitudes taken at face value; no FX (see data dictionary)
+
+glossary:
+  relationship_managers:
+    _desc: Advisors; each owns a book of clients.
+    rm_id: Primary key.
+    name: RM full name (synthetic).
+    book_segment: Wealth tier the RM specializes in.
+  companies:
+    _desc: Employer entities for the relationship graph (synthetic).
+    company_id: Primary key.
+    name: Company name.
+    sector: Industry sector.
+  clients:
+    _desc: The bank's clients (preserved from Berka; profile attributes synthesized).
+    client_id: Primary key (Berka client id).
+    rm_id: Owning relationship manager -> relationship_managers.
+    name: Client full name (synthetic).
+    gender: M | F (from Berka).
+    birth_date: ISO date (from Berka).
+    segment: Wealth tier derived from AUM — Mass Affluent | Affluent | HNW | UHNW.
+    risk_profile: Conservative | Balanced | Growth | Aggressive (synthetic).
+    kyc_status: verified | pending | expired (synthetic).
+    household_id: Household grouping; clients sharing an account are one household.
+    since: Client tenure start (earliest owned-account open date).
+    district: Czech district name (from Berka).
+  accounts:
+    _desc: Deposit/current accounts; one OWNER client each.
+    account_id: Primary key.
+    client_id: Owning client.
+    type: Account type (current).
+    currency: ISO currency (USD).
+    balance: Latest known balance (from the last Berka transaction).
+    opened_at: Account open date.
+    frequency: Statement frequency (Berka POPLATEK code).
+  holdings:
+    _desc: Investment positions (synthetic wealth layer Berka lacks).
+    holding_id: Primary key.
+    account_id: Custody account.
+    instrument: Security/fund name.
+    asset_class: Equity | Fixed Income | Fund | Cash | Alternative.
+    market_value: Current market value.
+    qty: Units held.
+  transactions:
+    _desc: Account cashflows (~1.06M rows from Berka, transformed).
+    txn_id: Primary key.
+    account_id: Account.
+    ts: Transaction date.
+    amount: Absolute amount (always positive; direction is in `type`).
+    type: credit (inflow) | debit (outflow).
+    counterparty: Other-bank code if any (often null).
+    channel: atm | card | branch | transfer_in | transfer_out | system.
+    k_symbol: Raw purpose code (UROK=interest, DUCHOD=pension, UVER=loan, POJISTNE=insurance, SIPO=household, SLUZBY=fees).
+  loans:
+    _desc: Loans (principal/status/schedule from Berka; rate synthesized).
+    loan_id: Primary key.
+    client_id: Borrower.
+    account_id: Linked account.
+    principal: Original loan amount.
+    rate: Annual interest rate (synthetic; Berka loans are interest-free).
+    status: paid | current | delinquent | defaulted.
+    opened_at: Origination date.
+    maturity: Maturity date (opened_at + duration months).
+    monthly_payment: Scheduled monthly payment.
+  leads:
+    _desc: Next-best-action sales opportunities (synthetic).
+    lead_id: Primary key.
+    client_id: Target client.
+    product: Product being pitched.
+    score: Propensity score 0-1.
+    status: open | contacted | won | lost.
+    created_at: Lead creation date.
+  interactions:
+    _desc: RM-client touchpoints; each links to a document.
+    interaction_id: Primary key.
+    client_id: Client.
+    rm_id: RM.
+    ts: Interaction date.
+    channel: call | email | meeting | video.
+    type: review | prospecting | service | complaint.
+    sentiment: positive | neutral | negative.
+    summary_ref: -> documents.doc_id.
+  documents:
+    _desc: Unstructured corpus (LLM-synthesized, grounded on structured facts).
+    doc_id: Primary key (string).
+    client_id: Client the doc concerns; NULL for global KB.
+    kind: note | transcript | brief | complaint | kb.
+    ts: Document date.
+    text: Full text (embedded in the vector store).
+    embedding_ref: Vector-store id (Chroma).
+    provenance: JSON of the structured facts the doc was conditioned on.
+  edges:
+    _desc: >
+      Graph projection for multi-hop relationship queries (Q5). Directed edges by rel_type:
+      'employer' = client(src) -> company(dst); 'advisor' = rm(src) -> client(dst);
+      'household' = client(src, non-root member) -> client(dst, household root). To find
+      everyone sharing an employer, self-join edges on dst_id where rel_type='employer'.
+      (For same-household membership, clients.household_id is the simplest path.)
+    src_type: Source node type (client | rm | company).
+    src_id: Source node id.
+    dst_type: Destination node type (client | rm | company).
+    dst_id: Destination node id.
+    rel_type: household | employer | referral | advisor.
+
+# Governed metric definitions — the ONE place each KPI is defined (spec §3.5, semantic layer E).
+# `sql` returns (client_id, value) unless noted; :as_of binds the point-in-time date.
+metrics:
+  aum:
+    label: Assets Under Management
+    desc: Managed wealth per client = deposit balances + portfolio market value.
+    # Holdings are pre-aggregated per account BEFORE the join — joining accounts to the
+    # raw holdings rows fans out and double-counts balance once per holding.
+    sql: |
+      SELECT a.client_id,
+             SUM(a.balance + COALESCE(h.mv, 0)) AS aum
+      FROM accounts a
+      LEFT JOIN (SELECT account_id, SUM(market_value) AS mv
+                 FROM holdings GROUP BY account_id) h ON h.account_id = a.account_id
+      GROUP BY a.client_id
+  days_since_contact:
+    label: Days Since Last Contact
+    desc: Days between the as-of date and the client's most recent interaction.
+    sql: |
+      SELECT c.client_id,
+             CAST(julianday(:as_of) - julianday(MAX(i.ts)) AS INT) AS days_since_contact
+      FROM clients c
+      LEFT JOIN interactions i ON i.client_id = c.client_id
+      GROUP BY c.client_id
+  net_new_money:
+    label: Net New Money
+    desc: Net external cashflow (credits minus debits) over a period [:start, :as_of].
+    sql: |
+      SELECT a.client_id,
+             SUM(CASE WHEN t.type='credit' THEN t.amount ELSE -t.amount END) AS net_new_money
+      FROM accounts a JOIN transactions t ON t.account_id = a.account_id
+      WHERE t.ts BETWEEN :start AND :as_of
+      GROUP BY a.client_id
+  share_of_wallet:
+    label: Share of Wallet (proxy)
+    desc: >
+      Managed assets as a share of the client's estimated total relationship value.
+      PROXY: no external-wealth field exists in the prototype, so denominator =
+      AUM + outstanding loan principal. Documented as a proxy, not a true SoW.
+    sql: |
+      SELECT m.client_id,
+             m.aum / (m.aum + COALESCE(l.debt, 0)) AS share_of_wallet
+      FROM ( {{aum}} ) m
+      LEFT JOIN (SELECT client_id, SUM(principal) debt FROM loans
+                 WHERE status IN ('current','delinquent') GROUP BY client_id) l
+        ON l.client_id = m.client_id
+  churn_risk:
+    label: Churn Risk (heuristic)
+    desc: >
+      Heuristic 0-1 risk score (no churn label in the prototype data). Rises with contact
+      staleness, negative-sentiment share, and net outflows. Documented as a heuristic.
+    sql: |
+      SELECT c.client_id,
+             MIN(1.0,
+                 0.5 * (COALESCE(dsc.days_since_contact, 365) / 365.0)
+               + 0.3 * COALESCE(neg.neg_share, 0)
+               + 0.2 * (CASE WHEN nnm.net_new_money < 0 THEN 1 ELSE 0 END)
+             ) AS churn_risk
+      FROM clients c
+      LEFT JOIN ( {{days_since_contact}} ) dsc ON dsc.client_id = c.client_id
+      LEFT JOIN ( {{net_new_money}} )      nnm ON nnm.client_id = c.client_id
+      LEFT JOIN (SELECT client_id,
+                        AVG(CASE WHEN sentiment='negative' THEN 1.0 ELSE 0 END) neg_share
+                 FROM interactions GROUP BY client_id) neg ON neg.client_id = c.client_id
+
+# Canonical names / synonyms to disambiguate NL queries (spec §3.5).
+entity_dictionary:
+  book: An RM's set of clients (clients.rm_id = <that RM>).
+  client: A customer of the bank (clients table).
+  household: Clients sharing the same household_id.
+  AUM: See metrics.aum.
+  contact: A row in interactions (a touchpoint with the client).
+  portfolio: A client's holdings across their accounts.
+  HNW: High-net-worth segment (AUM 1M-5M USD).
+  UHNW: Ultra-high-net-worth segment (AUM >= 5M USD).
+  lead: A sales opportunity (leads table).
+  policy / product KB: documents WHERE kind = 'kb'.

@@ -1,0 +1,402 @@
+[
+ {
+  "id": "vec-q3-doc-925-2",
+  "archetype": "Q3",
+  "question": "What is the minimum balance required to avoid the monthly account maintenance fee?",
+  "gold_doc_ids": [
+   "doc-925-2"
+  ],
+  "source_doc_id": "doc-925-2",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-1427-1",
+  "archetype": "Q3",
+  "question": "How should I handle a client with $400k in cash who wants to reduce cash drag by increasing alternative investments, but whose pending KYC status limits available options?",
+  "gold_doc_ids": [
+   "doc-1427-1"
+  ],
+  "source_doc_id": "doc-1427-1",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-6551-0",
+  "archetype": "Q3",
+  "question": "Why did the relationship manager decide to send Sharon a list of short-term bond options following their March 1994 meeting?",
+  "gold_doc_ids": [
+   "doc-6551-0"
+  ],
+  "source_doc_id": "doc-6551-0",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-4665-3",
+  "archetype": "Q3",
+  "question": "What goodwill gesture was recommended for the client who complained about the 120 CZK monthly fee not being disclosed when her account was opened in 1993?",
+  "gold_doc_ids": [
+   "doc-4665-3"
+  ],
+  "source_doc_id": "doc-4665-3",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-3368-0",
+  "archetype": "Q3",
+  "question": "What product was recommended to Nicole Marshall to reduce cash drag before her June property tax payment?",
+  "gold_doc_ids": [
+   "doc-3368-0"
+  ],
+  "source_doc_id": "doc-3368-0",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-3115-5",
+  "archetype": "Q3",
+  "question": "What are the steps to set up automatic bill payments and increase a client's ATM daily limit?",
+  "gold_doc_ids": [
+   "doc-3115-5"
+  ],
+  "source_doc_id": "doc-3115-5",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-230-2",
+  "archetype": "Q3",
+  "question": "What should we discuss with Stacey Nguyen about her December credit?",
+  "gold_doc_ids": [
+   "doc-230-2"
+  ],
+  "source_doc_id": "doc-230-2",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-4477-1",
+  "archetype": "Q3",
+  "question": "What was the purpose of the $62,600 ATM withdrawal on November 4?",
+  "gold_doc_ids": [
+   "doc-4477-1"
+  ],
+  "source_doc_id": "doc-4477-1",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-7800-3",
+  "archetype": "Q3",
+  "question": "What is the status of the goodwill adjustment for the penalty interest charge that was applied due to a weekend processing delay?",
+  "gold_doc_ids": [
+   "doc-7800-3"
+  ],
+  "source_doc_id": "doc-7800-3",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-2414-1",
+  "archetype": "Q3",
+  "question": "Was the $31,520 ATM withdrawal from your account today authorized, and what was it for?",
+  "gold_doc_ids": [
+   "doc-2414-1"
+  ],
+  "source_doc_id": "doc-2414-1",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-83-4",
+  "archetype": "Q3",
+  "question": "What investment did we recommend for Laura after her KYC update and inheritance?",
+  "gold_doc_ids": [
+   "doc-83-4"
+  ],
+  "source_doc_id": "doc-83-4",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-2967-3",
+  "archetype": "Q3",
+  "question": "What was the outcome of the complaint regarding the $25 account service fee that Tiffany Lewis claimed was not disclosed when she opened her account?",
+  "gold_doc_ids": [
+   "doc-2967-3"
+  ],
+  "source_doc_id": "doc-2967-3",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-12003-3",
+  "archetype": "Q3",
+  "question": "What is the reason for Richard Francis's complaint regarding penalty interest on his loan?",
+  "gold_doc_ids": [
+   "doc-12003-3"
+  ],
+  "source_doc_id": "doc-12003-3",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-10818-0",
+  "archetype": "Q3",
+  "question": "What was Albert's response to the suggestion to redirect his cash to investments rather than paying off his loan early?",
+  "gold_doc_ids": [
+   "doc-10818-0"
+  ],
+  "source_doc_id": "doc-10818-0",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-3546-0",
+  "archetype": "Q3",
+  "question": "Why does Joel Hill prefer to keep his cash position liquid rather than moving into a short-term bond ladder?",
+  "gold_doc_ids": [
+   "doc-3546-0"
+  ],
+  "source_doc_id": "doc-3546-0",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-1867-4",
+  "archetype": "Q3",
+  "question": "What is the liquidity and target return of the new private credit fund you mentioned to Stephanie?",
+  "gold_doc_ids": [
+   "doc-1867-4"
+  ],
+  "source_doc_id": "doc-1867-4",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-4013-4",
+  "archetype": "Q3",
+  "question": "What did the client say about diversifying her investment portfolio?",
+  "gold_doc_ids": [
+   "doc-4013-4"
+  ],
+  "source_doc_id": "doc-4013-4",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-3019-3",
+  "archetype": "Q3",
+  "question": "What actions were taken after Benjamin Adams complained about the undisclosed $15 service fee?",
+  "gold_doc_ids": [
+   "doc-3019-3"
+  ],
+  "source_doc_id": "doc-3019-3",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-55-2",
+  "archetype": "Q3",
+  "question": "What is the main concern regarding Andrea Dickerson's current portfolio allocation given her balanced risk profile?",
+  "gold_doc_ids": [
+   "doc-55-2"
+  ],
+  "source_doc_id": "doc-55-2",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-2762-1",
+  "archetype": "Q3",
+  "question": "What was the source of the $69,152 credit posted to the account in June 1994?",
+  "gold_doc_ids": [
+   "doc-2762-1"
+  ],
+  "source_doc_id": "doc-2762-1",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-10912-7",
+  "archetype": "Q3",
+  "question": "What was the resolution for Andrew Evans' complaint about the delayed execution of his market order for an aggressive growth fund placed after market close?",
+  "gold_doc_ids": [
+   "doc-10912-7"
+  ],
+  "source_doc_id": "doc-10912-7",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-4318-4",
+  "archetype": "Q3",
+  "question": "What was Amber's reaction to the suggestion of adding an annuity for guaranteed income?",
+  "gold_doc_ids": [
+   "doc-4318-4"
+  ],
+  "source_doc_id": "doc-4318-4",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-4364-3",
+  "archetype": "Q3",
+  "question": "How did the three-day delay in returning the client's call affect their bill payment and what did they demand from the bank?",
+  "gold_doc_ids": [
+   "doc-4364-3"
+  ],
+  "source_doc_id": "doc-4364-3",
+  "kind": null
+ },
+ {
+  "id": "vec-q3-doc-68-3",
+  "archetype": "Q3",
+  "question": "After the system error caused a $15 monthly service fee on Michael Pratt's account, what actions were taken to correct it and prevent future occurrences?",
+  "gold_doc_ids": [
+   "doc-68-3"
+  ],
+  "source_doc_id": "doc-68-3",
+  "kind": null
+ },
+ {
+  "id": "vec-q8-kb-0",
+  "archetype": "Q8",
+  "question": "What are the key eligibility requirements for a client to invest in structured notes, such as the minimum investment amount and net worth threshold?",
+  "gold_doc_ids": [
+   "kb-0"
+  ],
+  "source_doc_id": "kb-0",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-1",
+  "archetype": "Q8",
+  "question": "What is the minimum margin percentage that triggers forced liquidation on a Lombard loan?",
+  "gold_doc_ids": [
+   "kb-1"
+  ],
+  "source_doc_id": "kb-1",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-2",
+  "archetype": "Q8",
+  "question": "What happens if a client does not complete the KYC refresh within 30 days of the due date?",
+  "gold_doc_ids": [
+   "kb-2"
+  ],
+  "source_doc_id": "kb-2",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-3",
+  "archetype": "Q8",
+  "question": "What conditions trigger the performance fee on the discretionary mandate?",
+  "gold_doc_ids": [
+   "kb-3"
+  ],
+  "source_doc_id": "kb-3",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-4",
+  "archetype": "Q8",
+  "question": "What is the minimum trade size for foreign exchange transactions?",
+  "gold_doc_ids": [
+   "kb-4"
+  ],
+  "source_doc_id": "kb-4",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-5",
+  "archetype": "Q8",
+  "question": "How can I help a client with deposits exceeding the standard $250,000 FDIC limit still achieve full insurance coverage?",
+  "gold_doc_ids": [
+   "kb-5"
+  ],
+  "source_doc_id": "kb-5",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-6",
+  "archetype": "Q8",
+  "question": "What is the minimum asset level required for priority access to your wealth planning services?",
+  "gold_doc_ids": [
+   "kb-6"
+  ],
+  "source_doc_id": "kb-6",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-7",
+  "archetype": "Q8",
+  "question": "What are the net worth and income requirements for a client to qualify for alternative investments under your policy?",
+  "gold_doc_ids": [
+   "kb-7"
+  ],
+  "source_doc_id": "kb-7",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-8",
+  "archetype": "Q8",
+  "question": "What is the maintenance loan-to-value ratio for a securities-backed credit line, and what happens if it is exceeded?",
+  "gold_doc_ids": [
+   "kb-8"
+  ],
+  "source_doc_id": "kb-8",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-9",
+  "archetype": "Q8",
+  "question": "What documentation is required for clients who are U.S. persons under FATCA?",
+  "gold_doc_ids": [
+   "kb-9"
+  ],
+  "source_doc_id": "kb-9",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-10",
+  "archetype": "Q8",
+  "question": "What is the minimum value of eligible securities required to participate in the securities lending program?",
+  "gold_doc_ids": [
+   "kb-10"
+  ],
+  "source_doc_id": "kb-10",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-11",
+  "archetype": "Q8",
+  "question": "What is the reduced lending rate for premium tier clients?",
+  "gold_doc_ids": [
+   "kb-11"
+  ],
+  "source_doc_id": "kb-11",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-12",
+  "archetype": "Q8",
+  "question": "What are the requirements for verifying a client's identity and source of funds when opening a new account?",
+  "gold_doc_ids": [
+   "kb-12"
+  ],
+  "source_doc_id": "kb-12",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-13",
+  "archetype": "Q8",
+  "question": "What is the minimum amount required to roll over a retirement account into a self-directed IRA at the bank?",
+  "gold_doc_ids": [
+   "kb-13"
+  ],
+  "source_doc_id": "kb-13",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-14",
+  "archetype": "Q8",
+  "question": "What should I do if I receive a suspicious email that appears to be from the bank?",
+  "gold_doc_ids": [
+   "kb-14"
+  ],
+  "source_doc_id": "kb-14",
+  "kind": "kb"
+ },
+ {
+  "id": "vec-q8-kb-15",
+  "archetype": "Q8",
+  "question": "What is the cutoff time for same-day processing of outgoing international wire transfers, and what fees apply for SWIFT versus SEPA payments?",
+  "gold_doc_ids": [
+   "kb-15"
+  ],
+  "source_doc_id": "kb-15",
+  "kind": "kb"
+ }
+]

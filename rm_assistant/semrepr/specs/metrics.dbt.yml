@@ -1,0 +1,54 @@
+# dbt/Cube-style declarative metric specs (Phase-3b). Simple metrics generate SQL from
+# {source, joins, measure, group_by}; share_of_wallet is a native ratio reference to aum;
+# churn_risk needs a raw-SQL escape hatch (the clamped weighted sum is not natively expressible).
+metrics:
+  aum:
+    label: Assets Under Management
+    source: accounts a
+    joins:
+      - "LEFT JOIN (SELECT account_id, SUM(market_value) AS mv FROM holdings GROUP BY account_id) h ON h.account_id = a.account_id"
+    entity: a.client_id
+    measure: "SUM(a.balance + COALESCE(h.mv, 0))"
+    group_by: a.client_id
+  days_since_contact:
+    label: Days Since Last Contact
+    source: clients c
+    joins:
+      - "LEFT JOIN interactions i ON i.client_id = c.client_id"
+    entity: c.client_id
+    measure: "CAST(julianday(:as_of) - julianday(MAX(i.ts)) AS INT)"
+    group_by: c.client_id
+  net_new_money:
+    label: Net New Money
+    source: accounts a
+    joins:
+      - "JOIN transactions t ON t.account_id = a.account_id"
+    entity: a.client_id
+    measure: "SUM(CASE WHEN t.type='credit' THEN t.amount ELSE -t.amount END)"
+    where: "t.ts BETWEEN :start AND :as_of"
+    group_by: a.client_id
+  share_of_wallet:
+    label: Share of Wallet (proxy)
+    ratio:
+      of: aum
+      over_expr: "m.aum + COALESCE(l.debt, 0)"
+      extra_joins:
+        - "LEFT JOIN (SELECT client_id, SUM(principal) debt FROM loans WHERE status IN ('current','delinquent') GROUP BY client_id) l ON l.client_id = m.client_id"
+  churn_risk:
+    label: Churn Risk (heuristic)
+    expr_refs:
+      dsc: days_since_contact
+      nnm: net_new_money
+    expr: |
+      SELECT c.client_id,
+             MIN(1.0,
+                 0.5 * (COALESCE(dsc.days_since_contact, 365) / 365.0)
+               + 0.3 * COALESCE(neg.neg_share, 0)
+               + 0.2 * (CASE WHEN nnm.net_new_money < 0 THEN 1 ELSE 0 END)
+             ) AS churn_risk
+      FROM clients c
+      LEFT JOIN ( {dsc} ) dsc ON dsc.client_id = c.client_id
+      LEFT JOIN ( {nnm} ) nnm ON nnm.client_id = c.client_id
+      LEFT JOIN (SELECT client_id,
+                        AVG(CASE WHEN sentiment='negative' THEN 1.0 ELSE 0 END) neg_share
+                 FROM interactions GROUP BY client_id) neg ON neg.client_id = c.client_id
