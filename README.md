@@ -1,5 +1,10 @@
 # RM Copilot — Wealth / Private-Banking RM Assistant (prototype)
 
+![Python 3.11](https://img.shields.io/badge/python-3.11-3776ab?logo=python&logoColor=white)
+![built with uv](https://img.shields.io/badge/built%20with-uv-de5fe9)
+![License: MIT](https://img.shields.io/badge/license-MIT-green)
+![status: prototype](https://img.shields.io/badge/status-prototype%20%C2%B7%20synthetic%20data-orange)
+
 A prototype that treats **RAG retrieval as a *plural* search problem** and converges on a
 **routed hybrid** architecture for a synthetic private bank — then spends most of its effort on
 making the conclusions, including the *negative* ones, trustworthy.
